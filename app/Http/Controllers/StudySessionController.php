@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\StudySession;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth; // Added: Import Auth facade to resolve 'Undefined method id' warning
 
 class StudySessionController extends Controller
 {
@@ -12,6 +12,7 @@ class StudySessionController extends Controller
     public function start()
     {
         $session = StudySession::create([
+            // Changed: Replaced auth()->id() with Auth::id() to avoid IDE/static analysis warnings
             'user_id' => Auth::id(),
             'date' => now()->toDateString(),
             'start_time' => now(),
