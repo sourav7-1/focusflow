@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('goals', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete(); // Changed: added user_id foreign key
+            $table->unsignedInteger('daily_goal')->default(240);            // Changed: added daily_goal (minutes)
             $table->timestamps();
         });
     }

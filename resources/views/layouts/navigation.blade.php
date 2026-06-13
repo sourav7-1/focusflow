@@ -15,11 +15,36 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link href="#study-sessions" :active="false">
+                        {{ __('Study Sessions') }}
+                    </x-nav-link>
+                    <x-nav-link href="#goals" :active="false">
+                        {{ __('Goals') }}
+                    </x-nav-link>
+                    <x-nav-link href="#analytics" :active="false">
+                        {{ __('Analytics') }}
+                    </x-nav-link>
+                    <x-nav-link href="#achievements" :active="false">
+                        {{ __('Achievements') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
+                        {{ __('Settings') }}
+                    </x-nav-link>
                 </div>
             </div>
 
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <!-- Dark Mode Toggle + Settings Dropdown -->
+            <div class="hidden sm:flex sm:items-center sm:ms-6 gap-2">
+
+                <!-- Dark Mode Toggle Button -->
+                <button
+                    id="darkModeToggle"
+                    onclick="toggleDarkMode()"
+                    class="p-2 rounded-lg text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
+                    title="Toggle dark mode">
+                    <span id="darkIcon">🌙</span>
+                </button>
+
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
@@ -70,6 +95,21 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link href="#study-sessions" :active="false">
+                {{ __('Study Sessions') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="#goals" :active="false">
+                {{ __('Goals') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="#analytics" :active="false">
+                {{ __('Analytics') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="#achievements" :active="false">
+                {{ __('Achievements') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
+                {{ __('Settings') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
@@ -97,4 +137,19 @@
             </div>
         </div>
     </div>
-</nav>
+
+<script>
+    function toggleDarkMode() {
+        const html = document.documentElement;
+        const isDark = html.classList.toggle('dark');
+        localStorage.setItem('darkMode', isDark);
+        document.getElementById('darkIcon').textContent = isDark ? '☀️' : '🌙';
+    }
+
+    // Sync icon on load
+    document.addEventListener('DOMContentLoaded', () => {
+        const isDark = document.documentElement.classList.contains('dark');
+        const icon = document.getElementById('darkIcon');
+        if (icon) icon.textContent = isDark ? '☀️' : '🌙';
+    });
+</script>
